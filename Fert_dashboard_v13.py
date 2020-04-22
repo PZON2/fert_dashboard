@@ -12,7 +12,7 @@ from plotly.subplots import make_subplots
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+
 
 df = pd.read_excel('Sample.xlsx')
 gps = pd.read_excel('output.xlsx')
@@ -44,7 +44,9 @@ brand_agg=brand_agg[['Brand', 'NSP', 'COGS']]
 brands = df2['Brand'].unique()
 brands = np.append(brands, np.array(['All']))
 
-app = dash.Dash()
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
+
 app.layout = html.Div([
         html.Div(
             style={'width': '42%', 'backgroundColor': '#ffffff', 'display': 'inline-block',
@@ -233,5 +235,6 @@ def update_country_deepdive(hoverData):
     return fig1
     
     
-app.run_server(debug=False)
+if __name__ == '__main__':
+    app.run_server()
     
